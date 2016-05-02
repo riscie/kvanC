@@ -1,37 +1,34 @@
 <html>
 
-  <head>
+<head>
     <title>Email Client</title>
-	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-	
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <!-- 1. Load libraries -->
-	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-	<!-- system.js must be at beginning to load following modules. other scripts are dependent from it -->
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- system.js must be at beginning to load following modules. other scripts are dependent from it -->
     <script src="node_modules/systemjs/dist/system.src.js"></script>
     <script src="node_modules/rxjs/bundles/Rx.js"></script>
     <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="node_modules/angular2/bundles/angular2.js"></script>
     <script src="node_modules/angular2/bundles/http.js"></script>
-
     <!-- 2. Configure SystemJS -->
     <script>
-      System.config({
-        packages: {        
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
+    System.config({
+        packages: {
+            app: {
+                format: 'register',
+                defaultExtension: 'js'
+            }
         }
-      });
-      System.import('app/boot')
-            .then(null, console.error.bind(console));
+    });
+    System.import('app/boot')
+        .then(null, console.error.bind(console));
     </script>
+</head>
+<!-- 3. Display the application -->
 
-  </head>
-
-  <!-- 3. Display the application -->
-  <body class="container-fluid">
-    <my-app>Loading...</my-app>
-  </body>
+<body class="container-fluid">
+    <email>Loading...</email>
+</body>
 
 </html>
