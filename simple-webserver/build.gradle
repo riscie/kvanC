@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+mainClassName = 'ch.fhnw.kvanc.MyWebServer'
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.18'
+    testCompile 'junit:junit:4.12'
+}

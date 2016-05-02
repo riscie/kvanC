@@ -1,0 +1,54 @@
+buildscript {
+    ext {
+        jettyVersion = '9.3.6.v20151106'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+jar {
+    baseName = 'client.processing'
+}
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'ch.fhnw.kvanc.App'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile("org.eclipse.jetty.websocket:websocket-client:${jettyVersion}")
+    compile("org.eclipse.jetty:jetty-util:${jettyVersion}")
+    compile("org.eclipse.jetty:jetty-io:${jettyVersion}")
+    compile files("libs/core-3.0.1.jar")
+    compile("commons-configuration:commons-configuration:1.10")
+    compile('org.slf4j:slf4j-api:1.7.13')
+    compile("ch.qos.logback:logback-classic:1.1.6")
+    
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+}
+
+task studentCopy(type: Copy) {
+	from '.'
+    into 'build/students/' + project.name
+    exclude '.project'
+    exclude '.classpath'
+    exclude '.settings'
+    exclude 'bin'
+    exclude 'build'
+}
+
+task studentZip(type: Zip) {
+	from 'build/students'
+	baseName = 'dist-student-'+project.name
+}
+
+studentZip.dependsOn studentCopy

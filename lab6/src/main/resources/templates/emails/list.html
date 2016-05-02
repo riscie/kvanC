@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Email List</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" th:href="@{/bootstrap.min.css}" href="../../static/bootstrap.min.css" />
+</head>
+<body class="container-fluid">
+	<h4>List of Emails</h4>
+	<div th:each="email : ${emails}">
+		[<span th:text="${email.id}">1</span>]
+		<strong th:text="${email.sender}">Frodo</strong> to
+		<span th:text="${email.recipient}">Gollum</span><br />
+		<span th:text="${email.message}">mein Eigen, mein Schatz</span>
+		<span><a th:href="@{/emails/delete/}+${email.id}">delete</a></span>
+		<p/>
+	</div>
+	
+	<a href="/lab6/emails?form=create">Neues Email erstellen</a>
+</body>
+</html>
