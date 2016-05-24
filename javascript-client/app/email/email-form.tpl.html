@@ -1,14 +1,23 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">KvanC - Email RIA</a>
+        </div>
+    </div><!--/.container-fluid -->
+</nav>
+
+<h1>Send an Email</h1><hr>
 <div class="modal-body">
     <div class="form-group">
         <label for="email-to" class="col-sm-2 control-label">To</label>
         <div class="col-sm-10">
-            <input [(ngModel)]="email.to" placeholder="to" id="email-to" class="form-control">
+            <input [(ngModel)]="email.recipient" placeholder="to" id="email-to" class="form-control">
         </div>
     </div>
     <div class="form-group">
         <label for="email-from" class="col-sm-2 control-label">From</label>
         <div class="col-sm-10">
-            <input [(ngModel)]="email.from" placeholder="from" id="email-from" class="form-control">
+            <input [(ngModel)]="email.sender" placeholder="from" id="email-from" class="form-control">
         </div>
     </div>
     <div class="form-group">
@@ -24,6 +33,7 @@
         </div>
     </div>
 </div>
+<h1>Your Emails</h1><hr>
 <div class="col-sm-offset-2 col-sm-10">
     <br />
     <br />

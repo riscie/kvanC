@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Email} from './email.model';
-import {Http, Response} from 'angular2/http';
+import {Http, Response, Headers} from 'angular2/http';
+import 'rxjs/add/operator/map';
 
 
 @Injectable()
@@ -8,23 +9,28 @@ export class EmailService {
   constructor (private http: Http) {}
 
   private emailUrl = 'http://localhost:8080/emails';  // URL to web api
-  
+  // private emailUrl = 'http://86.119.38.74/emails';  // URL to web api
+
   getEmails (): Observable<Email[]> {
       return this.http.get(this.emailUrl)
                       .map(this.extractData)
                       .catch(this.handleError);
   }
 
-  sendEmail (email Email) {
+  private sendEmail(email:Email) {
+    var body = JSON.stringify(email);
+    console.log(body);
     var headers = new Headers();
-    headers.append('Content-Type': 'application/json');
-
-          this.http.post(this.emailUrl, JSON.stringify(email),{headers:headers})
-          .map(res => res.json())
-          .subscribe();
+    headers.append('Content-Type', 'application/json');
+    this.http.post(this.emailUrl,
+        body,
+        {headers:headers})
+    // .map(res => res.json())
+    .subscribe(res => {
+      console.log(res);});
   }
   
-  private extractData(res: Response) {
+  private extractData(res:Response) {
     if (res.status < 200 || res.status >= 300) {
       throw new Error('Bad response status: ' + res.status);
     }

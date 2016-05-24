@@ -11,19 +11,21 @@ import 'rxjs/Rx';
 })
 
 export class EmailComponent implements OnInit {
-    email = Email;
+    email : Email;
     emails = [];
     errorMessage = '';
 
     constructor(private emailService: EmailService){
-        this.email = {};
+        this.email = new Email;
     }
 
    ngOnInit() {
        this.getEmails();
    }
 
-    public resetForm = () => { this.email = {};}
+    public resetForm(){
+        this.email = {}
+    }
 
     public sendEmail() {
         this.emailService.sendEmail(this.email);

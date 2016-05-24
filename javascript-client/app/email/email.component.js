@@ -30,16 +30,16 @@ System.register(['angular2/core', './email.model', './email.service', 'angular2/
         execute: function() {
             EmailComponent = (function () {
                 function EmailComponent(emailService) {
-                    var _this = this;
                     this.emailService = emailService;
-                    this.email = email_model_1.Email;
                     this.emails = [];
                     this.errorMessage = '';
-                    this.resetForm = function () { _this.email = {}; };
-                    this.email = {};
+                    this.email = new email_model_1.Email;
                 }
                 EmailComponent.prototype.ngOnInit = function () {
                     this.getEmails();
+                };
+                EmailComponent.prototype.resetForm = function () {
+                    this.email = {};
                 };
                 EmailComponent.prototype.sendEmail = function () {
                     this.emailService.sendEmail(this.email);

@@ -31,9 +31,16 @@ public class EmailController {
 		return new ResponseEntity<List<Email>>(emails, HttpStatus.OK);
 	}
 
+	@RequestMapping(params = "form", method = RequestMethod.GET)
+	public String getCreateForm(Model model) {
+		model.addAttribute("email", new Email());
+		return "emails/create";
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Email> create(@Valid @RequestBody Email e) {
-		Email email = repo.save(e);
-		return new ResponseEntity<Email>(email, HttpStatus.CREATED);
+	public String create(@Valid @RequestBody Email email) {
+		Email newEmail = repo.save(email);
+		System.out.println(newEmail.getMessage() + " " + newEmail.getRecipient());
+		return "redirect:emails?form=create";
 	}
 }

@@ -1,4 +1,4 @@
-System.register(['angular2/core', './email.model', 'angular2/http'], function(exports_1, context_1) {
+System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,37 +10,38 @@ System.register(['angular2/core', './email.model', 'angular2/http'], function(ex
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, email_model_1, http_1;
+    var core_1, http_1;
     var EmailService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             },
-            function (email_model_1_1) {
-                email_model_1 = email_model_1_1;
-            },
             function (http_1_1) {
                 http_1 = http_1_1;
-            }],
+            },
+            function (_1) {}],
         execute: function() {
             EmailService = (function () {
                 function EmailService(http) {
                     this.http = http;
                     this.emailUrl = 'http://localhost:8080/emails'; // URL to web api
                 }
+                // private emailUrl = 'http://86.119.38.74/emails';  // URL to web api
                 EmailService.prototype.getEmails = function () {
                     return this.http.get(this.emailUrl)
                         .map(this.extractData)
                         .catch(this.handleError);
                 };
                 EmailService.prototype.sendEmail = function (email) {
-                    if (email === void 0) { email = email_model_1.Email; }
-                    var headers = new Headers();
+                    var body = JSON.stringify(email);
+                    console.log(body);
+                    var headers = new http_1.Headers();
                     headers.append('Content-Type', 'application/json');
-                    this.http.post(this.emailUrl, JSON.stringify(email), { headers: headers })
-                        .map(function (res) { return res.json(); })
-                        .subscribe();
+                    this.http.post(this.emailUrl, body, { headers: headers })
+                        .subscribe(function (res) {
+                        console.log(res);
+                    });
                 };
                 EmailService.prototype.extractData = function (res) {
                     if (res.status < 200 || res.status >= 300) {

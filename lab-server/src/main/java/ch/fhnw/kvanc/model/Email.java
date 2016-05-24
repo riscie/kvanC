@@ -4,17 +4,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="emails")
+@Table(name = "emails")
 public class Email {
-	@Id @GeneratedValue private Long id;
-	@NotNull private String recipient;
-	@NotNull private String sender;
-	@NotNull private String message;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	public Email() {}
+	private String recipient;
+
+	private String sender;
+
+	private String message;
+
+	public Email() {
+	}
 
 	public Long getId() {
 		return id;

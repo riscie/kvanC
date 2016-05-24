@@ -1,5 +1,6 @@
 export class Email {
-    to: string;
-    from: string;
+    // id: number;
+    recipient: string;
+    sender: string;
     message: string;
 }
