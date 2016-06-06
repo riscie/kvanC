@@ -1,5 +1,6 @@
 package ch.fhnw.kvanc.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.fhnw.kvanc.WebSocketEndpoint;
 import ch.fhnw.kvanc.model.Email;
 import ch.fhnw.kvanc.persistence.EmailRepository;
 
@@ -23,6 +25,9 @@ import ch.fhnw.kvanc.persistence.EmailRepository;
 public class EmailController {
 	@Autowired
 	private EmailRepository repo;
+
+	@Autowired
+	private WebSocketEndpoint wsHandler;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Email>> list(Model model) {
@@ -40,6 +45,12 @@ public class EmailController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String create(@Valid @RequestBody Email email) {
 		Email newEmail = repo.save(email);
+		// send websocket message
+		try {
+			wsHandler.pushEmail(email);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println(newEmail.getMessage() + " " + newEmail.getRecipient());
 		return "redirect:emails?form=create";
 	}
